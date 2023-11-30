@@ -1,6 +1,7 @@
 import json
 import plotly
 import pandas as pd
+import pickle
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -8,7 +9,7 @@ from nltk.tokenize import word_tokenize
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
-from sklearn.externals import joblib
+#from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
 
@@ -26,11 +27,12 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/YourDatabaseName.db')
-df = pd.read_sql_table('YourTableName', engine)
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
+df = pd.read_sql_table('MessagesCategorized', engine)
 
 # load model
-model = joblib.load("../models/your_model_name.pkl")
+#model = joblib.load("../models/classifier.pkl")
+model = pickle.load(open('../models/classifier.pkl', 'rb'))
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -38,13 +40,21 @@ model = joblib.load("../models/your_model_name.pkl")
 @app.route('/index')
 def index():
     
-    # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
+    # extracting data needed for visuals
+    
+    # genre distribution
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+
+    # percentage of messages in each category distribution
+    categories = df.iloc[:, 4:]
+    category_names = categories.columns.tolist()
+    category_percentage_in_dataset = []
+    for column in categories:
+        num_of_occurences = categories[column].gt(0).sum()
+        category_percentage_in_dataset.append(100*num_of_occurences/categories.shape[0])
     
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
@@ -63,7 +73,28 @@ def index():
                     'title': "Genre"
                 }
             }
-        }
+        },
+        {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_percentage_in_dataset
+                )
+            ],
+
+            'layout': {
+                'title': 'Percentage of Messages in each category',
+                'yaxis': {
+                    'title': "Percentage [%]"
+                },
+                'xaxis': {
+                    'title': "Category name"
+                },
+                'margin': { 
+                    'b': 160
+                }
+            }
+        },
     ]
     
     # encode plotly graphs in JSON
