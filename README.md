@@ -39,7 +39,7 @@ The web app also displays visualizations of the data.
     - template 
         - master.html    - main page of web app
         - go.html        - classification result page of web app
-        - run.py         - Flask file that runs app
+    - run.py             - Flask file that runs app
 
 - data
     - disaster_categories.csv  - data to process 
@@ -50,3 +50,7 @@ The web app also displays visualizations of the data.
 - models
     - train_classifier.py     - python script creating, training and evaluating ml model  
     - classifier.pkl          - saved model 
+
+- jupyter_notebooks
+    - ETL Pipeline Preparation.ipynb  - jupyter notebook used for ETL preparation
+    - ML Pipeline Preparation.ipynb  - jupyter notebook used for ML preparation

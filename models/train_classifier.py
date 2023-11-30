@@ -104,7 +104,7 @@ def evaluate_model(model, X_test, Y_test):
     print("Accuracy averaged: ", accuracy_avg)
 
 
-def impove_model(model, X_train, Y_train):
+def improve_model(model, X_train, Y_train):
     """Function for improving model by performing grid search"""
     
     # defining parameters for grid search
@@ -148,7 +148,7 @@ def main():
         evaluate_model(model, X_test, Y_test) 
 
         print('Improving model with Grid Search...')
-        model = impove_model(model, X_train, Y_train) # this part is optional, grid search takes a lot of time to process
+        model = improve_model(model, X_train, Y_train) # this part is optional, grid search takes a lot of time to process
 
         print('Evaluating improved model...')
         evaluate_model(model, X_test, Y_test) 
