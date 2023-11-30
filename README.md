@@ -36,17 +36,17 @@ The web app also displays visualizations of the data.
 
 ### Code structure
 - app
-| - template 
-| |- master.html  # main page of web app
-| |- go.html      # classification result page of web app
-|- run.py         # Flask file that runs app
+    - template 
+        - master.html    - main page of web app
+        - go.html        - classification result page of web app
+        - run.py         - Flask file that runs app
 
 - data
-|- disaster_categories.csv  # data to process 
-|- disaster_messages.csv    # data to process
-|- process_data.py          # python script for cleaning and transforming the data 
-|- DisasterResponse.db      # database to save clean data to
+    - disaster_categories.csv  - data to process 
+    - disaster_messages.csv    - data to process
+    - process_data.py          - python script for cleaning and transforming the data 
+    - DisasterResponse.db      - database to save clean data to
 
 - models
-|- train_classifier.py     # python script creating, training and evaluating ml model  
-|- classifier.pkl          # saved model 
+    - train_classifier.py     - python script creating, training and evaluating ml model  
+    - classifier.pkl          - saved model 
