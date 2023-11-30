@@ -29,7 +29,7 @@ def clean_data(df):
     df: pandas.DataFrame. Dataframe with messages and categories.
 
     Returns:
-    df: pandas.DataFrame. Cleaned dataframe with categories splitted into separate columns
+    df: pandas.DataFrame. Cleaned dataframe with categories splitted into separate columns.
     """
 
     # expanding categories into separate clumns using split method
